@@ -32,6 +32,8 @@ including use cases and view model to obtain the data
 
 - [Kotlin](https://kotlinlang.org/) - For coding.
 - [ExoPlayer](https://developer.android.com/guide/topics/media/exoplayer) -For play videos
+- [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) -For
+    dependency injection.
 - Jetpack
     - [Compose](https://developer.android.com/jetpack/compose?gclid=CjwKCAiAzKqdBhAnEiwAePEjkkbfP8b_r6c57F3jtdwOjxWpBbNOXVmpSnAUu4HKCid7KtSvfiiYeRoC1wYQAvD_BwE&gclsrc=aw.ds)
         - Android’s recommended modern toolkit for building native UI.
