@@ -51,7 +51,8 @@ fun VideoScreen(viewModel: VideoViewModel = hiltViewModel()) {
     ) {
         LazyColumn(
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start
+            horizontalAlignment = Alignment.Start,
+            modifier = Modifier.layoutId(VIDEO_LAZY_COLUMN_ID)
         ) {
             itemsIndexed(videos) { index, video ->
                 playingIndex.value = index
@@ -81,7 +82,8 @@ fun VideoItem(
             .clickable {
                 onItemClick.invoke(video)
             }
-            .background(color = Color.DarkGray),
+            .background(color = Color.DarkGray)
+            .layoutId(VIDEO_COLUMN_ID),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.Start
     ) {
@@ -117,6 +119,8 @@ fun VideoItem(
 
 const val NAME_ID = "video_name_txt"
 const val DESCRIPTION_ID = "video_description_id"
+const val VIDEO_COLUMN_ID = "video_column"
+const val VIDEO_LAZY_COLUMN_ID = "video_lazy_column"
 
 @ExperimentalAnimationApi
 @Preview(name = Constants.LIGHT_MODE)
