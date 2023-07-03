@@ -56,7 +56,7 @@ fun VideoScreen(viewModel: VideoViewModel = hiltViewModel()) {
             itemsIndexed(videos) { index, video ->
                 playingIndex.value = index
                 VideoItem(video, onItemClick = { data ->
-                    Log.d("Skill pressed: ", data.name)
+                    Log.d("Video pressed: ", data.name)
                 }, playingIndex)
             }
         }
