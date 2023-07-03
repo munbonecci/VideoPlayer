@@ -1,4 +1,4 @@
-package com.munbonecci.videoplayer.features
+package com.munbonecci.videoplayer.features.video
 
 import android.content.res.Configuration
 import android.util.Log

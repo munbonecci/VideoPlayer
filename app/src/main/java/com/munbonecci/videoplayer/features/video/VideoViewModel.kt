@@ -1,4 +1,4 @@
-package com.munbonecci.videoplayer.features
+package com.munbonecci.videoplayer.features.video
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
