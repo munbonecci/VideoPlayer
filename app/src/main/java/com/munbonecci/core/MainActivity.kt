@@ -9,6 +9,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
+import com.munbonecci.core.navigation.NavigationGraph
 import com.munbonecci.videoplayer.features.video.VideoScreen
 import com.munbonecci.videoplayer.ui.theme.VideoPlayerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                   VideoScreen()
+                    val navController = rememberNavController()
+                    NavigationGraph(navController = navController)
                 }
             }
         }
@@ -34,6 +37,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     VideoPlayerTheme {
-        VideoScreen()
+        VideoScreen(onVideoPressed = {})
     }
 }

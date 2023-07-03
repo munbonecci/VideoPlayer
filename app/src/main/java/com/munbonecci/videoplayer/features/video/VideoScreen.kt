@@ -39,7 +39,10 @@ import com.munbonecci.videoplayer.ui.theme.dimen_200dp
 import com.munbonecci.videoplayer.ui.theme.dimen_8dp
 
 @Composable
-fun VideoScreen(viewModel: VideoViewModel = hiltViewModel()) {
+fun VideoScreen(
+    onVideoPressed: (VideoEntity) -> Unit,
+    viewModel: VideoViewModel = hiltViewModel()
+) {
     val item by viewModel.uiVideosState.collectAsState()
     val videos = item.videos
     val playingIndex = remember { mutableStateOf(0) }
@@ -57,6 +60,7 @@ fun VideoScreen(viewModel: VideoViewModel = hiltViewModel()) {
             itemsIndexed(videos) { index, video ->
                 playingIndex.value = index
                 VideoItem(video, onItemClick = { data ->
+                    onVideoPressed.invoke(data)
                     Log.d("Video pressed: ", data.name)
                 }, playingIndex)
             }
@@ -128,7 +132,7 @@ const val VIDEO_LAZY_COLUMN_ID = "video_lazy_column"
 fun ShowVideoPreview() {
     VideoPlayerTheme {
         Surface {
-            VideoScreen()
+            VideoScreen(onVideoPressed = {})
         }
     }
 }

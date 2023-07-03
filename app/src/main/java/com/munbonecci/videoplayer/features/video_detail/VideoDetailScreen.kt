@@ -43,7 +43,7 @@ import com.munbonecci.videoplayer.ui.theme.dimen_50dp
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun VideoDetailScreen() {
+fun VideoDetailScreen(onBackButtonClicked: () -> Unit, videoId: String?) {
     var isFavoriteSelected by remember { mutableStateOf(false) }
     val playingIndex = remember { mutableStateOf(0) }
     val item = VideoEntity()
@@ -142,7 +142,10 @@ const val EXTRA_INFO_ID = "extra_info"
 fun ShowVideoPreview() {
     VideoPlayerTheme {
         Surface {
-            VideoDetailScreen()
+            VideoDetailScreen(
+                onBackButtonClicked = {},
+                ""
+            )
         }
     }
 }

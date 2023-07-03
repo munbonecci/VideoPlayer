@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Video Player</string>
+    <string name="video_category">Video</string>
+    <string name="video_detail_category">Video detail</string>
     <string name="circle_icon_button">"Circle icon button"</string>
     <string name="show_more_label">"… Show More"</string>
     <string name="show_less_label">" Show Less"</string>
