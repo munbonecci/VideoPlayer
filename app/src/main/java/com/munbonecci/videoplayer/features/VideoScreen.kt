@@ -111,7 +111,6 @@ fun VideoItem(
                 .padding(dimen_8dp),
             text = video.description,
             color = Color.White,
-            fontWeight = FontWeight.Normal,
             fontSize = 12.sp
         )
     }

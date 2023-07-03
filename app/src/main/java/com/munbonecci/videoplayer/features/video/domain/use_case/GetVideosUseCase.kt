@@ -26,8 +26,8 @@ object VideoConstants {
 val getVideosFakeData: List<VideoEntity>
     get() = listOf(
         VideoEntity(
-            name = "1",
-            description = "This Video is used for Testing, the content is not mine and free to use",
+            name = "1- Bunny Video",
+            description = "This Video is used for Testing, the content is not mine and is free to use",
             extraInfo = "#extra @test, #extra @test, #extra @test, #extra @test, #extra @test, #extra @test",
             videoResultEntity = VideoResultEntity(
                 1,
