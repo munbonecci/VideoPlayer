@@ -8,6 +8,7 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,7 +45,7 @@ fun ExpandableText(
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
-    var lastCharIndex by remember { mutableStateOf(0) }
+    var lastCharIndex by remember { mutableIntStateOf(0) }
     Box(modifier = Modifier
         .clickable(clickable) {
             isExpanded = !isExpanded

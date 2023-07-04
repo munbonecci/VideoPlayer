@@ -15,7 +15,9 @@ import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,6 +28,7 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.munbonecci.videoplayer.commons.Constants
 import com.munbonecci.videoplayer.commons.Constants.EXTRA_INFO_LENGTH
 import com.munbonecci.videoplayer.commons.utils.IconResource
@@ -34,7 +37,6 @@ import com.munbonecci.videoplayer.components.ExpandableText
 import com.munbonecci.videoplayer.components.IconButtonWithText
 import com.munbonecci.videoplayer.components.TextMarqueeWithFadeEdge
 import com.munbonecci.videoplayer.components.VideoPlayer
-import com.munbonecci.videoplayer.domain.VideoEntity
 import com.munbonecci.videoplayer.ui.theme.VideoPlayerTheme
 import com.munbonecci.videoplayer.ui.theme.dimen_100dp
 import com.munbonecci.videoplayer.ui.theme.dimen_16dp
@@ -43,19 +45,25 @@ import com.munbonecci.videoplayer.ui.theme.dimen_50dp
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun VideoDetailScreen(onBackButtonClicked: () -> Unit, videoId: String?) {
+fun VideoDetailScreen(
+    onBackButtonClicked: () -> Unit,
+    videoId: String?,
+    viewModel: VideoDetailViewModel = hiltViewModel()
+) {
     var isFavoriteSelected by remember { mutableStateOf(false) }
-    val playingIndex = remember { mutableStateOf(0) }
-    val item = VideoEntity()
+    val playingIndex = remember { mutableIntStateOf(0) }
+    videoId?.let { viewModel.getVideo(it) }
+    val item by viewModel.uiVideoState.collectAsState()
+    val video = item.video
 
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.BottomEnd
     ) {
         VideoPlayer(
-            video = item.videoResultEntity,
+            video = video.videoResultEntity,
             playingIndex = playingIndex,
-            onVideoChange = { newIndex -> playingIndex.value = newIndex },
+            onVideoChange = { newIndex -> playingIndex.intValue = newIndex },
             isVideoEnded = {},
         )
         Box(
@@ -101,24 +109,24 @@ fun VideoDetailScreen(onBackButtonClicked: () -> Unit, videoId: String?) {
             ) {
                 Text(
                     modifier = Modifier.layoutId(NAME_ID),
-                    text = item.videoResultEntity.name,
+                    text = video.videoResultEntity.name,
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 14.sp
                 )
                 ExpandableText(
                     modifier = Modifier.layoutId(DESCRIPTION_ID),
-                    text = item.description,
+                    text = video.description,
                     textColor = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 12.sp
                 )
-                if (item.extraInfo.length > EXTRA_INFO_LENGTH) {
-                    TextMarqueeWithFadeEdge(text = item.extraInfo, layoutId = EXTRA_INFO_ID)
+                if (video.extraInfo.length > EXTRA_INFO_LENGTH) {
+                    TextMarqueeWithFadeEdge(text = video.extraInfo, layoutId = EXTRA_INFO_ID)
                 } else {
                     Text(
                         modifier = Modifier.layoutId(EXTRA_INFO_ID),
-                        text = item.extraInfo,
+                        text = video.extraInfo,
                         color = Color.White,
                         fontWeight = FontWeight.Bold
                     )
