@@ -6,6 +6,6 @@ plugins {
     id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
