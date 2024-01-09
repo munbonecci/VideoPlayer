@@ -1,7 +1,7 @@
 <h1 align="center">VideoPlayer</h1> 
 
 <p align="center">
-Android Video App. This app was created to learn more about Android compose and ExoPlayer
+Android Video App. This app was created to learn more about Android compose and ExoPlayer.
 </p>
 
 ## Installation
@@ -46,3 +46,5 @@ including use cases and view model to obtain the data
 - Open it in Android Studio
 - Wait until dependencies are installed
 - Run app in your emulator or physical device
+
+![App Screens](app/app-image.png)
