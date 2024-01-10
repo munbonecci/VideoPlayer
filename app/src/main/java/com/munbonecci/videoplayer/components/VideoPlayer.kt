@@ -3,6 +3,7 @@ package com.munbonecci.videoplayer.components
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.OptIn
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,16 +23,18 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.google.android.exoplayer2.C
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.MediaMetadata
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.AspectRatioFrameLayout
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.C
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import androidx.media3.common.Player
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.AspectRatioFrameLayout
+import androidx.media3.ui.PlayerView
 import com.munbonecci.videoplayer.commons.Constants.VIDEO_PLAYER_TAG
 import com.munbonecci.videoplayer.domain.VideoResultEntity
 
+@OptIn(UnstableApi::class)
 @SuppressLint("OpaqueUnitKey")
 @ExperimentalAnimationApi
 @Composable
@@ -39,7 +42,7 @@ fun VideoPlayer(
     video: VideoResultEntity,
     playingIndex: State<Int>,
     onVideoChange: (Int) -> Unit,
-    isVideoEnded: (Boolean) -> Unit,
+    isVideoEnded: (Boolean) -> Unit, x
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -111,7 +114,7 @@ fun VideoPlayer(
                 modifier = modifier
                     .testTag(VIDEO_PLAYER_TAG),
                 factory = {
-                    StyledPlayerView(context).apply {
+                    PlayerView(context).apply {
                         player = exoPlayer
                         layoutParams = FrameLayout.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
