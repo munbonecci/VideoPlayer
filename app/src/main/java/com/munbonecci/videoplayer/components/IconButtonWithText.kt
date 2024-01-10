@@ -21,6 +21,18 @@ import androidx.compose.ui.unit.sp
 import com.munbonecci.videoplayer.commons.Constants
 import com.munbonecci.videoplayer.commons.utils.IconResource
 
+/**
+ * Composable function for an icon button with accompanying text.
+ *
+ * @param layoutId The optional identifier for the layout.
+ * @param icon The icon to be displayed on the button.
+ * @param tintColor The color of the icon.
+ * @param text The text to be displayed below the icon.
+ * @param textColor The color of the text.
+ * @param contentDesc The content description for accessibility.
+ * @param fontSize The font size of the text.
+ * @param onButtonPressed The lambda function to be executed when the button is pressed.
+ */
 @Composable
 fun IconButtonWithText(
     layoutId: String = "",
@@ -32,18 +44,24 @@ fun IconButtonWithText(
     fontSize: TextUnit = 11.sp,
     onButtonPressed: () -> Unit
 ) {
+    // Use the IconButton composable from Jetpack Compose
     IconButton(
         modifier = Modifier.layoutId(layoutId),
-        onClick = { onButtonPressed.invoke() }) {
+        onClick = { onButtonPressed.invoke() }
+    ) {
+        // Column to center the icon and text vertically within the button
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Icon composable for displaying the provided icon
             Icon(
                 icon,
                 tint = tintColor,
-                contentDescription = contentDesc,
+                contentDescription = contentDesc
             )
+
+            // Check if text is provided and display a Text composable
             if (text.isNotEmpty()) {
                 Text(
                     text = text,
@@ -55,6 +73,7 @@ fun IconButtonWithText(
         }
     }
 }
+
 
 @Preview(name = Constants.LIGHT_MODE)
 @Preview(name = Constants.DARK_MODE, uiMode = Configuration.UI_MODE_NIGHT_YES)

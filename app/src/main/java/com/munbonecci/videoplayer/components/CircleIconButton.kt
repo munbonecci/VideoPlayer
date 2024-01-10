@@ -25,6 +25,17 @@ import com.munbonecci.videoplayer.commons.utils.IconResource
 import com.munbonecci.videoplayer.ui.theme.dimen_5dp
 
 
+/**
+ * Composable function for a circular icon button.
+ *
+ * @param modifier The modifier for styling and positioning the button.
+ * @param layoutId The optional identifier for the layout.
+ * @param icon The icon to be displayed on the button.
+ * @param iconColor The color of the icon.
+ * @param backGroundColor The background color of the button.
+ * @param contentDescription The content description for accessibility.
+ * @param onClick The lambda function to be executed when the button is clicked.
+ */
 @Composable
 fun CircleIconButton(
     modifier: Modifier = Modifier,
@@ -35,18 +46,23 @@ fun CircleIconButton(
     contentDescription: String = stringResource(id = R.string.circle_icon_button),
     onClick: () -> Unit
 ) {
+    // Use the IconButton composable from Jetpack Compose
     IconButton(
         modifier = modifier.layoutId(layoutId),
-        onClick = { onClick.invoke() }) {
+        onClick = { onClick.invoke() }
+    ) {
+        // Column to center the icon within the circular button
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
+                // Apply a circular shape to the button
                 .background(
                     color = backGroundColor,
                     shape = CircleShape
                 )
         ) {
+            // Icon composable for displaying the provided icon
             Icon(
                 icon,
                 contentDescription = contentDescription,

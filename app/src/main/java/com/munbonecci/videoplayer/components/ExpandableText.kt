@@ -13,8 +13,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,6 +24,22 @@ import androidx.compose.ui.unit.TextUnit
 
 const val DEFAULT_MINIMUM_TEXT_LINE = 3
 
+/**
+ * An expandable text component that provides access to truncated text with a dynamic ... Show More/Show Less button.
+ *
+ * @param modifier Modifier for the Box containing the text.
+ * @param textModifier Modifier for the Text composable.
+ * @param style The TextStyle to apply to the text.
+ * @param fontStyle The FontStyle to apply to the text.
+ * @param text The text to be displayed.
+ * @param collapsedMaxLine The maximum number of lines to display when collapsed.
+ * @param showMoreText The text to display for "Show More" button.
+ * @param showMoreStyle The SpanStyle for "Show More" button.
+ * @param showLessText The text to display for "Show Less" button.
+ * @param showLessStyle The SpanStyle for "Show Less" button.
+ * @param textAlign The alignment of the text.
+ * @param fontSize The font size of the text.
+ */
 @Composable
 fun ExpandableText(
     modifier: Modifier = Modifier,
@@ -34,24 +48,26 @@ fun ExpandableText(
     fontStyle: FontStyle? = null,
     text: String,
     collapsedMaxLine: Int = DEFAULT_MINIMUM_TEXT_LINE,
-    showMoreText: String = stringResource(id = com.munbonecci.videoplayer.R.string.show_more_label),
+    showMoreText: String = "... Show More",
     showMoreStyle: SpanStyle = SpanStyle(fontWeight = FontWeight.W500),
-    showLessText: String = stringResource(id = com.munbonecci.videoplayer.R.string.show_less_label),
+    showLessText: String = " Show Less",
     showLessStyle: SpanStyle = showMoreStyle,
     textAlign: TextAlign? = null,
-    fontSize: TextUnit,
-    textColor: Color = Color.White,
-    fontWeight: FontWeight = FontWeight.Normal
+    fontSize: TextUnit
 ) {
+    // State variables to track the expanded state, clickable state, and last character index.
     var isExpanded by remember { mutableStateOf(false) }
     var clickable by remember { mutableStateOf(false) }
     var lastCharIndex by remember { mutableIntStateOf(0) }
+
+    // Box composable containing the Text composable.
     Box(modifier = Modifier
         .clickable(clickable) {
             isExpanded = !isExpanded
         }
         .then(modifier)
     ) {
+        // Text composable with buildAnnotatedString to handle "Show More" and "Show Less" buttons.
         Text(
             modifier = textModifier
                 .fillMaxWidth()
@@ -59,9 +75,11 @@ fun ExpandableText(
             text = buildAnnotatedString {
                 if (clickable) {
                     if (isExpanded) {
+                        // Display the full text and "Show Less" button when expanded.
                         append(text)
                         withStyle(style = showLessStyle) { append(showLessText) }
                     } else {
+                        // Display truncated text and "Show More" button when collapsed.
                         val adjustText = text.substring(startIndex = 0, endIndex = lastCharIndex)
                             .dropLast(showMoreText.length)
                             .dropLastWhile { Character.isWhitespace(it) || it == '.' }
@@ -69,11 +87,14 @@ fun ExpandableText(
                         withStyle(style = showMoreStyle) { append(showMoreText) }
                     }
                 } else {
+                    // Display the full text when not clickable.
                     append(text)
                 }
             },
+            // Set max lines based on the expanded state.
             maxLines = if (isExpanded) Int.MAX_VALUE else collapsedMaxLine,
             fontStyle = fontStyle,
+            // Callback to determine visual overflow and enable click ability.
             onTextLayout = { textLayoutResult ->
                 if (!isExpanded && textLayoutResult.hasVisualOverflow) {
                     clickable = true
@@ -82,9 +103,7 @@ fun ExpandableText(
             },
             style = style,
             textAlign = textAlign,
-            fontSize = fontSize,
-            color = textColor,
-            fontWeight = fontWeight
+            fontSize = fontSize
         )
     }
 }
