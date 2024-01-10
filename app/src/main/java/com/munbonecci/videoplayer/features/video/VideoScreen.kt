@@ -19,7 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,7 +45,7 @@ fun VideoScreen(
 ) {
     val item by viewModel.uiVideosState.collectAsState()
     val videos = item.videos
-    val playingIndex = remember { mutableStateOf(0) }
+    val playingIndex = remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -58,7 +58,7 @@ fun VideoScreen(
             modifier = Modifier.layoutId(VIDEO_LAZY_COLUMN_ID)
         ) {
             itemsIndexed(videos) { index, video ->
-                playingIndex.value = index
+                playingIndex.intValue = index
                 VideoItem(video, onItemClick = { data ->
                     onVideoPressed.invoke(data)
                     Log.d("Video pressed: ", data.name)

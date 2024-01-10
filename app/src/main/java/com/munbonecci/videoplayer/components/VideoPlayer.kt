@@ -1,5 +1,6 @@
 package com.munbonecci.videoplayer.components
 
+import android.annotation.SuppressLint
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,6 +32,7 @@ import com.google.android.exoplayer2.ui.StyledPlayerView
 import com.munbonecci.videoplayer.commons.Constants.VIDEO_PLAYER_TAG
 import com.munbonecci.videoplayer.domain.VideoResultEntity
 
+@SuppressLint("OpaqueUnitKey")
 @ExperimentalAnimationApi
 @Composable
 fun VideoPlayer(
@@ -90,9 +93,11 @@ fun VideoPlayer(
                         exoPlayer.play()
                     }
                 }
+
                 Lifecycle.Event.ON_STOP -> {
                     exoPlayer.pause()
                 }
+
                 else -> {
                     //Nothing
                 }
@@ -138,11 +143,11 @@ fun ShowVideoPreview() {
         "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
     )
     val playingIndex = remember {
-        mutableStateOf(0)
+        mutableIntStateOf(0)
     }
 
     fun onTrailerChange(index: Int) {
-        playingIndex.value = index
+        playingIndex.intValue = index
     }
     VideoPlayer(
         video = video,
