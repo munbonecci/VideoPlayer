@@ -42,7 +42,7 @@ fun VideoPlayer(
     video: VideoResultEntity,
     playingIndex: State<Int>,
     onVideoChange: (Int) -> Unit,
-    isVideoEnded: (Boolean) -> Unit, x
+    isVideoEnded: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
