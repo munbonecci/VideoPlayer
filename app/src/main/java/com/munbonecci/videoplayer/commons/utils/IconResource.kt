@@ -21,10 +21,6 @@ class IconResource private constructor(
     }
 
     companion object {
-        fun fromDrawableResource(@DrawableRes resID: Int): IconResource {
-            return IconResource(resID, null)
-        }
-
         fun fromImageVector(imageVector: ImageVector?): IconResource {
             return IconResource(null, imageVector)
         }

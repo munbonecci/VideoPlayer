@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -39,6 +40,8 @@ const val DEFAULT_MINIMUM_TEXT_LINE = 3
  * @param showLessStyle The SpanStyle for "Show Less" button.
  * @param textAlign The alignment of the text.
  * @param fontSize The font size of the text.
+ * @param textColor The color of the text.
+ * @param fontWeight The wight of the text. Example Bold, Normal
  */
 @Composable
 fun ExpandableText(
@@ -53,7 +56,9 @@ fun ExpandableText(
     showLessText: String = " Show Less",
     showLessStyle: SpanStyle = showMoreStyle,
     textAlign: TextAlign? = null,
-    fontSize: TextUnit
+    fontSize: TextUnit,
+    textColor: Color = Color.White,
+    fontWeight: FontWeight = FontWeight.Normal
 ) {
     // State variables to track the expanded state, clickable state, and last character index.
     var isExpanded by remember { mutableStateOf(false) }
@@ -103,7 +108,9 @@ fun ExpandableText(
             },
             style = style,
             textAlign = textAlign,
-            fontSize = fontSize
+            fontSize = fontSize,
+            color = textColor,
+            fontWeight = fontWeight
         )
     }
 }
